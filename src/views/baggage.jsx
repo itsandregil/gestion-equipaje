@@ -1,10 +1,12 @@
-// View for Baggage Management
+import BaggageOptionsSection from "../components/baggageSection"
 import NavBar from "../components/navbar"
 
+// Baggage view
 function BaggageView() {
     return (
         <>
-            <NavBar></NavBar>
+            <NavBar/>
+            <BaggageOptionsSection/>
         </>
     )
 }
