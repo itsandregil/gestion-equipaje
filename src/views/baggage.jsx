@@ -1,4 +1,5 @@
 import BaggageOptionsSection from "../components/baggageSection"
+import InfoSection from "../components/infoSection"
 import NavBar from "../components/navbar"
 import RecommendationSection from "../components/recommendationSection"
 
@@ -9,6 +10,7 @@ function BaggageView() {
             <NavBar/>
             <BaggageOptionsSection/>
             <RecommendationSection/>
+            <InfoSection/>
         </>
     )
 }
