@@ -7,7 +7,7 @@ function Footer() {
     return (
         <>
             <footer className="bg-cyan-500 flex justify-center">
-                <div className="space-y-8">
+                <div className="space-y-8 p-4">
                     <h2 className="text-3xl font-light text-white">¡Comunicate con nosotros!</h2>
                     <div className="flex space-x-8 justify-center">
                         <img className="h-12" src={instagramLogo} alt="instagram"/>
