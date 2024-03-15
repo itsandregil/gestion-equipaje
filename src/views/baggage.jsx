@@ -1,9 +1,10 @@
 import BaggageOptionsSection from "../components/baggageSection"
+import Footer from "../components/footer"
 import InfoSection from "../components/infoSection"
 import NavBar from "../components/navbar"
 import RecommendationSection from "../components/recommendationSection"
 
-// Baggage view
+// Baggage management main view
 function BaggageView() {
     return (
         <>
@@ -11,6 +12,7 @@ function BaggageView() {
             <BaggageOptionsSection/>
             <RecommendationSection/>
             <InfoSection/>
+            <Footer/>
         </>
     )
 }
