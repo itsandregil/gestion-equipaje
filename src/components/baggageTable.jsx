@@ -3,9 +3,9 @@ import BaggageCard from "./baggageCard"
 function BaggageTable() {
     return (
         <div className="flex justify-center space-x-10 mt-10 mb-10">
-            <BaggageCard title="Equipaje personal" description="xxx "  information="Pieza adicional"/>
-            <BaggageCard title="Equipaje de Mano" description="Maletas pequeñas" information="Pieza adicional"/>
-            <BaggageCard title="Equipaje de Bodega" description="Maletas gigantes" information="Pieza adicional"/>
+            <BaggageCard title="Equipaje personal" information="Pieza adicional" description="Medidas máximo: 45 cm  x 35 cm  x 25 cm (alto, largo y ancho). Peso máximo 5kg por pasajero. *Máximo 1 pieza por pasajeros." />
+            <BaggageCard title="Equipaje de Mano"  information="Pieza adicional" description="Medidas máximas: 55 x 35 x 25cm (alto, largo y ancho), incluyendo ruedas y manijas. Peso máximo: 10kg. *Máximo 1 pieza por pasajeros."/>
+            <BaggageCard title="Equipaje de Bodega" information="Pieza adicional" description="Medidas máximas: no debe exceder los 158cm de dimensión total (largo + ancho + alto). Peso máximo : 23kg y 32kg dependiendo de la tarifa.  *Máximo 3 piezas por pasajeros."/>
         </div>
     )
 }
