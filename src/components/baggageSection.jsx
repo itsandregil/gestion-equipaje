@@ -11,8 +11,10 @@ function BaggageOptionsSection() {
                     especial, entre otros.
                 </p>
                 <BaggageTable/>
-            </div>
+            </div>   
         </div>
+        
+        
     )
 }
 
