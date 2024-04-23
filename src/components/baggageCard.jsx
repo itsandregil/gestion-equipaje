@@ -1,7 +1,43 @@
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
+import Modal from '@mui/material/Modal';
+import TextField from '@mui/material/TextField';
+import * as React from 'react';
+import { useState } from 'react';
 import luggageLogo from '../assets/luggage.svg';
+import useForm from '../hooks/useForm';
 
 
-function BaggageCard({ title, description, information }) {
+function BaggageCard({ title }) {
+  const {
+    formState,
+    onInputChange,
+    onResetForm,
+    weight,
+    luggage_type,
+    width,
+    height,
+    length,
+    description,
+    user_id,
+    flight_id,
+    booking_id,
+    placement_area_id
+  } = useForm({
+    description: "Maleta",
+    weight: 4,
+    luggage_type: "De mano",
+    width: 10,
+    height: 10,
+    length: 10,
+    desciption: "Equipaje",
+    user_id: 1,
+    flight_id: 1,
+    booking_id: 1,
+    placement_area_id: 1
+  });
+
   //Temporal baggage template
   const bagg = {
     description: "Maleta",
@@ -17,23 +53,66 @@ function BaggageCard({ title, description, information }) {
     placement_area_id: 1
   };
 
-  const AddBaggage = async (bagg) => {
-    const options = {
-      method: "POST",
-      headers: {
-        cookie:
-          "next-auth.csrf-token=80c28e121d2c8ff1fd38631d5c417baccf79e024a98fcadae21a3535d62fa4aa%257Ccbb499010154b7f4a626b4c887fafbd7548cfd29aa3a53d0ed5c11d2cc6b4518; next-auth.callback-url=http%253A%252F%252Flocalhost%253A3000",
-        "User-Agent": "insomnia/8.6.1",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(bagg),
-    };
+  // const AddBaggage = async (bagg) => {
+  //   const options = {
+  //     method: "POST",
+  //     headers: {
+  //       cookie:
+  //         "next-auth.csrf-token=80c28e121d2c8ff1fd38631d5c417baccf79e024a98fcadae21a3535d62fa4aa%257Ccbb499010154b7f4a626b4c887fafbd7548cfd29aa3a53d0ed5c11d2cc6b4518; next-auth.callback-url=http%253A%252F%252Flocalhost%253A3000",
+  //       "User-Agent": "insomnia/8.6.1",
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(bagg),
+  //   };
 
-    fetch("http://localhost:8080/sitas/luggage", options)
-      .then((response) => response.json())
-      .then((response) => console.log(response))
-      .catch((err) => console.error(err));
+  //   fetch("http://localhost:8080/sitas/luggage", options)
+  //     .then((response) => response.json())
+  //     .then((response) => console.log(response))
+  //     .catch((err) => console.error(err));
+  // };
+
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
   };
+  
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const sendData = async (formData) => {
+    try {
+      const response = await fetch('http://localhost:8080/sitas/v1/luggage', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+  
+      if (!response.ok) {
+        throw new Error('Hubo un problema al enviar los datos.');
+      }
+  
+      // Aquí puedes manejar la respuesta si es necesario
+      const data = await response.json();
+      console.log('Respuesta del servidor:', data);
+    } catch (error) {
+      console.error('Error al enviar los datos:', error.message);
+      // Puedes manejar el error de alguna manera aquí, por ejemplo, mostrar un mensaje al usuario
+    }
+  };
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+    await sendData(formState)
+    console.log(formState)
+  }
   
   return (
     <div className="max-w-sm rounded overflow-hidden shadow-lg border border-cyan-500 px-6 py-10 text-center">
@@ -46,12 +125,134 @@ function BaggageCard({ title, description, information }) {
       </div>
       <div className="text-center">
         <button
-          onClick={() => AddBaggage(bagg)}
+          onClick={handleOpen}
           type="button"
           className="text-cyan-500 border-2 border-cyan-500 px-4 py-2 rounded-lg hover:bg-cyan-100">
           Agregar Equipaje
         </button>
       </div>
+      <Modal
+      open={open}
+      onClose={handleClose}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+      >
+      <Box sx={style}>
+        <form onSubmit={handleSubmit}>
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              label="Width"
+              type="number"
+              step="0.01"
+              name="width"
+              value={width}
+              onChange={onInputChange}
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              label="Height"
+              type="number"
+              step="0.01"
+              name="height"
+              value={height}
+              onChange={onInputChange}
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              label="Length"
+              type="number"
+              step="0.01"
+              name="length"
+              value={length}
+              onChange={onInputChange}
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              label="Weight"
+              type="number"
+              step="0.01"
+              name="weight"
+              value={weight}
+              onChange={onInputChange}
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              label="Description"
+              type="text"
+              name="description"
+              value={description}
+              onChange={onInputChange}
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              label="Luggage Type"
+              type="text"
+              name="luggageType"
+              value={luggage_type}
+              onChange={onInputChange}
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              label="User ID"
+              type="number"
+              name="userId"
+              value={user_id}
+              onChange={onInputChange}
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              label="Flight ID"
+              type="number"
+              name="flightId"
+              value={flight_id}
+              onChange={onInputChange}
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              label="Booking ID"
+              type="number"
+              name="bookingId"
+              value={booking_id}
+              onChange={onInputChange}
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              label="Placement Area ID"
+              type="number"
+              name="placementAreaId"
+              value={placement_area_id}
+              onChange={onInputChange}
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Button type="submit" variant="contained" color="primary">
+              Enviar
+            </Button>
+          </Grid>
+        </Grid>
+        </form>
+      </Box>
+      </Modal>
     </div>
   );
 }
