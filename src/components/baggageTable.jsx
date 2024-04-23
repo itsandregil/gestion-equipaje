@@ -48,7 +48,7 @@ function BaggageTable() {
     <div>
       <div className="flex justify-center space-x-10 mt-10 mb-10">
         <BaggageCard
-          title="Equipaje personal"
+          title="Equipaje Personal"
           description="xxx "
           information="Pieza adicional"
         />
@@ -63,32 +63,6 @@ function BaggageTable() {
           information="Pieza adicional"
         />
       </div>
-
-      {/* <div>
-        <h1>Titulo de la tabla</h1>
-        <table className="table-auto">
-          <thead>
-            <tr>
-              <th>id</th>
-              <th>description</th>
-              <th>weight</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {baggages?.map((baggage) => (
-              <tr key={baggage.id}>
-                <td>{baggage.id}</td>
-                <td>{baggage.description}</td>
-                <td>{baggage.weight}</td>
-                <td>
-                    <button onClick={() => DeleteBaggage(baggage.id)} className="bg-red-400">Eliminar</button>
-                </td>
-              </tr>
-            ))}            
-          </tbody>
-        </table>
-      </div> */}
     </div>
   );
 }

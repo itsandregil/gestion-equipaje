@@ -38,39 +38,6 @@ function BaggageCard({ title }) {
     placement_area_id: 1
   });
 
-  //Temporal baggage template
-  const bagg = {
-    description: "Maleta",
-    weight: 4,
-    luggage_type: "De mano",
-    width: 10,
-    height: 10,
-    length: 10,
-    desciption: "Equipaje",
-    user_id: 1,
-    flight_id: 1,
-    booking_id: 1,
-    placement_area_id: 1
-  };
-
-  // const AddBaggage = async (bagg) => {
-  //   const options = {
-  //     method: "POST",
-  //     headers: {
-  //       cookie:
-  //         "next-auth.csrf-token=80c28e121d2c8ff1fd38631d5c417baccf79e024a98fcadae21a3535d62fa4aa%257Ccbb499010154b7f4a626b4c887fafbd7548cfd29aa3a53d0ed5c11d2cc6b4518; next-auth.callback-url=http%253A%252F%252Flocalhost%253A3000",
-  //       "User-Agent": "insomnia/8.6.1",
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(bagg),
-  //   };
-
-  //   fetch("http://localhost:8080/sitas/luggage", options)
-  //     .then((response) => response.json())
-  //     .then((response) => console.log(response))
-  //     .catch((err) => console.error(err));
-  // };
-
   const style = {
     position: 'absolute',
     top: '50%',
@@ -100,12 +67,10 @@ function BaggageCard({ title }) {
         throw new Error('Hubo un problema al enviar los datos.');
       }
   
-      // Aquí puedes manejar la respuesta si es necesario
       const data = await response.json();
       console.log('Respuesta del servidor:', data);
     } catch (error) {
       console.error('Error al enviar los datos:', error.message);
-      // Puedes manejar el error de alguna manera aquí, por ejemplo, mostrar un mensaje al usuario
     }
   };
   const handleSubmit = async (event) => {
@@ -246,7 +211,7 @@ function BaggageCard({ title }) {
           </Grid>
           <Grid item xs={12}>
             <Button type="submit" variant="contained" color="primary">
-              Enviar
+              Guardar
             </Button>
           </Grid>
         </Grid>
