@@ -3,13 +3,11 @@ import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
-import * as React from 'react';
 import { useState } from 'react';
-import luggageLogo from '../assets/luggage.svg';
 import useForm from '../hooks/useForm';
 
 
-function BaggageCard({ title }) {
+function BaggageCard({ title, logo, luggageDescription, sizes, extra }) {
   const {
     formState,
     onInputChange,
@@ -49,7 +47,7 @@ function BaggageCard({ title }) {
     boxShadow: 24,
     p: 4,
   };
-  
+
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -62,11 +60,11 @@ function BaggageCard({ title }) {
         },
         body: JSON.stringify(formData)
       });
-  
+
       if (!response.ok) {
         throw new Error('Hubo un problema al enviar los datos.');
       }
-  
+
       const data = await response.json();
       console.log('Respuesta del servidor:', data);
     } catch (error) {
@@ -78,147 +76,154 @@ function BaggageCard({ title }) {
     await sendData(formState)
     console.log(formState)
   }
-  
+
   return (
-    <div className="max-w-sm rounded overflow-hidden shadow-lg border border-cyan-500 px-6 py-10 text-center">
-      <h2 className="text-2xl font-semibold mb-4 text-center">{title}</h2>
-      <div className="text-center mb-4">
-          <img src={luggageLogo} alt="Luggage" className="mx-auto h-32 w-32 mb-2"/>
-          <p className="text-gray-700">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-          </p>
-      </div>
-      <div className="text-center">
-        <button
-          onClick={handleOpen}
-          type="button"
-          className="text-cyan-500 border-2 border-cyan-500 px-4 py-2 rounded-lg hover:bg-cyan-100">
-          Agregar Equipaje
-        </button>
-      </div>
-      <Modal
-      open={open}
-      onClose={handleClose}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
+    <>
+      <button
+        className="group-options_item group-options-cards_item p-4 mb-4 border border-gray-200 rounded-lg shadow-lg flex text-left w-full hover:bg-gray-100 transition-colors duration-200"
+        onClick={handleOpen}
       >
-      <Box sx={style}>
-        <form onSubmit={handleSubmit}>
-        <Grid container spacing={2}>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              label="Width"
-              type="number"
-              step="0.01"
-              name="width"
-              value={width}
-              onChange={onInputChange}
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              label="Height"
-              type="number"
-              step="0.01"
-              name="height"
-              value={height}
-              onChange={onInputChange}
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              label="Length"
-              type="number"
-              step="0.01"
-              name="length"
-              value={length}
-              onChange={onInputChange}
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              label="Weight"
-              type="number"
-              step="0.01"
-              name="weight"
-              value={weight}
-              onChange={onInputChange}
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              label="Description"
-              type="text"
-              name="description"
-              value={description}
-              onChange={onInputChange}
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              label="Luggage Type"
-              type="text"
-              name="luggageType"
-              value={luggage_type}
-              onChange={onInputChange}
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              label="User ID"
-              type="number"
-              name="userId"
-              value={user_id}
-              onChange={onInputChange}
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              label="Flight ID"
-              type="number"
-              name="flightId"
-              value={flight_id}
-              onChange={onInputChange}
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              label="Booking ID"
-              type="number"
-              name="bookingId"
-              value={booking_id}
-              onChange={onInputChange}
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              label="Placement Area ID"
-              type="number"
-              name="placementAreaId"
-              value={placement_area_id}
-              onChange={onInputChange}
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Button type="submit" variant="contained" color="primary">
-              Guardar
-            </Button>
-          </Grid>
-        </Grid>
-        </form>
-      </Box>
+        <img src={logo} className="w-32 h-32 mr-4 object-cover" />
+        <div className="group-options-link flex-1">
+          <h3 className="group-options-link_title text-lg font-bold mb-2">
+            <span className="title_label">{title}</span>
+          </h3>
+          <div className="group-options-link_description text-gray-700">
+            <p>{luggageDescription}</p>
+            <ul className="mt-2 list-disc list-inside">
+              <li className="mt-1">
+                <span>{sizes}</span>
+              </li>
+              <li className="mt-1">
+                <span>{extra}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </button>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <form onSubmit={handleSubmit}>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  label="Width"
+                  type="number"
+                  step="0.01"
+                  name="width"
+                  value={width}
+                  onChange={onInputChange}
+                  fullWidth
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  label="Height"
+                  type="number"
+                  step="0.01"
+                  name="height"
+                  value={height}
+                  onChange={onInputChange}
+                  fullWidth
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  label="Length"
+                  type="number"
+                  step="0.01"
+                  name="length"
+                  value={length}
+                  onChange={onInputChange}
+                  fullWidth
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  label="Weight"
+                  type="number"
+                  step="0.01"
+                  name="weight"
+                  value={weight}
+                  onChange={onInputChange}
+                  fullWidth
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  label="Description"
+                  type="text"
+                  name="description"
+                  value={description}
+                  onChange={onInputChange}
+                  fullWidth
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  label="Luggage Type"
+                  type="text"
+                  name="luggageType"
+                  value={luggage_type}
+                  onChange={onInputChange}
+                  fullWidth
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  label="User ID"
+                  type="number"
+                  name="userId"
+                  value={user_id}
+                  onChange={onInputChange}
+                  fullWidth
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  label="Flight ID"
+                  type="number"
+                  name="flightId"
+                  value={flight_id}
+                  onChange={onInputChange}
+                  fullWidth
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  label="Booking ID"
+                  type="number"
+                  name="bookingId"
+                  value={booking_id}
+                  onChange={onInputChange}
+                  fullWidth
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  label="Placement Area ID"
+                  type="number"
+                  name="placementAreaId"
+                  value={placement_area_id}
+                  onChange={onInputChange}
+                  fullWidth
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Button type="submit" variant="contained" color="primary">
+                  Guardar
+                </Button>
+              </Grid>
+            </Grid>
+          </form>
+        </Box>
       </Modal>
-    </div>
+    </>
   );
 }
 

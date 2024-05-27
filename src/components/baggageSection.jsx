@@ -103,14 +103,14 @@ function BaggageOptionsSection() {
     return (
         <div className="flex justify-center mt-28">
             <div className="mx-auto max-w-screen-lg">
-                <h1 className="text-3xl font-semibold text-cyan-500 mb-4">Reserva: ########</h1>
-                <h2 className="text-2xl text-cyan-500 mb-4">Nombre de Pasajero</h2>
-                <p className="text-gray-500 text-xl">
+                <h2 className="text-3xl text-cyan-500 mb-4"><b>Reserva: </b>12344321</h2>
+                <h2 className="text-2xl text-cyan-500 mb-4"><b>Pasajero: </b>Daniel Tabares</h2>
+                <p className="text-gray-500 text-xl mb-4">
                     Ten en cuenta nuestras políticas para equipaje, peso, dimensiones, equipaje especial, entre otros.
                 </p>
                 <BaggageTable />
-                <div className='flex justify-center mb-8'>
-                    <Button variant='contained' onClick={handleOpen}>Ver mi equipaje</Button>
+                <div className='flex justify-center mb-8 mt-8'>
+                    <Button variant='contained' onClick={handleOpen}>Ver todo mi equipaje</Button>
                 </div>
                 <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
                     <Box sx={style}>
