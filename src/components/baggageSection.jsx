@@ -8,6 +8,8 @@ import { useEffect, useState } from 'react';
 
 import EditIcon from '@mui/icons-material/Edit';
 import { TextField } from '@mui/material';
+import Swal from 'sweetalert2';
+import '../index.css';
 import BaggageTable from './baggageTable';
 
 
@@ -22,6 +24,7 @@ function BaggageOptionsSection() {
         border: '2px solid #000',
         boxShadow: 24,
         p: 4,
+        zIndex: 1500
     };
 
     const [luggages, setLuggages] = useState([]);
@@ -65,7 +68,19 @@ function BaggageOptionsSection() {
             await fetch(`http://localhost:8080/sitas/v1/luggage/${id}`, {
                 method: 'DELETE'
             });
+
             setLuggages(prevLuggages => prevLuggages.filter((_, i) => i !== index));
+
+            Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Se ha eliminado el equipaje con exito",
+                showConfirmButton: false,
+                timer: 2000,
+                customClass: {
+                    container: 'my-swal-container'
+                }
+            });
 
         } catch (error) {
             console.error('Error al eliminar el equipaje:', error.message);
@@ -86,6 +101,18 @@ function BaggageOptionsSection() {
                 prevLuggages.map((luggage, i) => i === index ? updatedLuggage : luggage)
             );
             handleEditClose();
+
+            Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Se ha eliminado el equipaje con exito",
+                showConfirmButton: false,
+                timer: 2000,
+                customClass: {
+                    container: 'my-swal-container'
+                }
+            });
+
         } catch (error) {
             console.error('Error al actualizar el equipaje:', error.message);
         }

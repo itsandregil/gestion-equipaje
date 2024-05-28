@@ -4,10 +4,11 @@ import Grid from '@mui/material/Grid';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import { useState } from 'react';
+import Swal from 'sweetalert2';
 import useForm from '../hooks/useForm';
 
 
-function BaggageCard({ title, logo, luggageDescription, sizes, extra }) {
+function BaggageCard({ title, logo, luggageDescription, sizes, extra, luggageType }) {
   const {
     formState,
     onInputChange,
@@ -23,13 +24,12 @@ function BaggageCard({ title, logo, luggageDescription, sizes, extra }) {
     booking_id,
     placement_area_id
   } = useForm({
-    description: "Maleta",
-    weight: 4,
-    luggage_type: "De mano",
-    width: 10,
-    height: 10,
-    length: 10,
-    desciption: "Equipaje",
+    weight: 0,
+    luggage_type: luggageType,
+    width: 0,
+    height: 0,
+    length: 0,
+    description: "",
     user_id: 1,
     flight_id: 1,
     booking_id: 1,
@@ -63,6 +63,14 @@ function BaggageCard({ title, logo, luggageDescription, sizes, extra }) {
 
       if (!response.ok) {
         throw new Error('Hubo un problema al enviar los datos.');
+      } else {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Tu equipaje ha sido guardado con exito!",
+          showConfirmButton: false,
+          timer: 2000
+        });
       }
 
       const data = await response.json();
@@ -72,9 +80,10 @@ function BaggageCard({ title, logo, luggageDescription, sizes, extra }) {
     }
   };
   const handleSubmit = async (event) => {
-    event.preventDefault()
-    await sendData(formState)
-    console.log(formState)
+    event.preventDefault();
+    await sendData(formState);
+    setOpen(false);
+    onResetForm();
   }
 
   return (
@@ -170,46 +179,6 @@ function BaggageCard({ title, logo, luggageDescription, sizes, extra }) {
                   type="text"
                   name="luggageType"
                   value={luggage_type}
-                  onChange={onInputChange}
-                  fullWidth
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  label="User ID"
-                  type="number"
-                  name="userId"
-                  value={user_id}
-                  onChange={onInputChange}
-                  fullWidth
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  label="Flight ID"
-                  type="number"
-                  name="flightId"
-                  value={flight_id}
-                  onChange={onInputChange}
-                  fullWidth
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  label="Booking ID"
-                  type="number"
-                  name="bookingId"
-                  value={booking_id}
-                  onChange={onInputChange}
-                  fullWidth
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  label="Placement Area ID"
-                  type="number"
-                  name="placementAreaId"
-                  value={placement_area_id}
                   onChange={onInputChange}
                   fullWidth
                 />
