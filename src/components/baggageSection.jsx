@@ -105,7 +105,7 @@ function BaggageOptionsSection() {
             Swal.fire({
                 position: "center",
                 icon: "success",
-                title: "Se ha eliminado el equipaje con exito",
+                title: "Se ha actualizado el equipaje con exito",
                 showConfirmButton: false,
                 timer: 2000,
                 customClass: {
